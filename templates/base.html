@@ -59,9 +59,9 @@
   <header class="site-header">
     <div class="header-pill">
       <a href="#inicio" class="header-brand" aria-label="El Ají Seco del Mar, inicio">
-        <img src="{% static 'img/logo-aji-seco.png' %}" alt="El Ají Seco" style="height: 32px; width: auto; object-fit: contain; margin-right: 0.35rem;">
-        <strong>El Ají Seco</strong>
-        <span>del Mar · Viña</span>
+        <img src="{% static 'img/logo-aji-seco.png' %}" alt="El Ají Seco" class="header-brand-logo">
+        <strong class="header-brand-title">El Ají Seco</strong>
+        <span class="header-brand-sub">del Mar · Viña</span>
       </a>
 
       <nav class="header-nav" aria-label="Navegación principal">
@@ -73,10 +73,10 @@
       </nav>
 
       <div class="header-actions">
-        <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+        <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm header-btn-doc">
           Menú Ejecutivo (PDF)
         </a>
-        <a href="#reservar" class="btn btn-primary btn-sm">
+        <a href="#reservar" class="btn btn-primary btn-sm header-btn-reserve">
           Reservar
         </a>
         <button type="button" class="menu-toggle" aria-expanded="false" aria-label="Abrir menú">
@@ -94,8 +94,11 @@
       <li><a href="#experiencias" data-menu-link>Menú Ejecutivo</a></li>
       <li><a href="#filosofia" data-menu-link>Filosofía</a></li>
       <li><a href="#preguntas" data-menu-link>Preguntas</a></li>
-      <li style="padding-top: 1rem;">
-        <a href="#reservar" class="btn btn-primary" data-menu-link>Reservar mesa</a>
+      <li style="padding-top: 1rem; width: 100%; max-width: 280px; display: flex; flex-direction: column; gap: 0.75rem;">
+        <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="width: 100%; text-align: center;">
+          Menú Ejecutivo (PDF)
+        </a>
+        <a href="#reservar" class="btn btn-primary" style="width: 100%; text-align: center;" data-menu-link>Reservar mesa</a>
       </li>
     </ul>
 

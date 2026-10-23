@@ -19,14 +19,19 @@
     gsap.registerPlugin(ScrollTrigger);
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     // 1. Lenis Smooth Scroll
-    if (!reduceMotion && window.Lenis) {
+    // En dispositivos táctiles (móviles/tablets) desactivamos Lenis para permitir
+    // el deslizamiento nativo a 120Hz/60Hz con inercia de hardware sin fricción ("cuesta deslizar" resuelto).
+    // Lenis queda activo en Desktop para suavizar la rueda del ratón (mouse wheel).
+    if (!reduceMotion && !isTouch && window.Lenis) {
       const lenis = new window.Lenis({
-        duration: 1.2,
+        duration: 1.0,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: 'vertical',
         smoothWheel: true,
+        syncTouch: false,
       });
 
       lenis.on('scroll', ScrollTrigger.update);
