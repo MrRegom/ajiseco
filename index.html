@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="es" class="js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El Ají Seco del Mar | Cocina Marina & Criolla en Viña del Mar</title>
+  
+  <meta name="description" content="Restaurante de cocina peruana, marina y criolla en Av. San Martín 230, Viña del Mar. Paseo inmersivo, Menú Ejecutivo diario, ceviches frescos del día y reservas online.">
+  <meta name="theme-color" content="#131209">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="restaurant">
+  <meta property="og:title" content="El Ají Seco del Mar — Viña del Mar">
+  <meta property="og:description" content="Auténtica tradición marina y criolla del Perú en Av. San Martín 230, Viña del Mar. Menú Ejecutivo y Reservas.">
+  <meta property="og:url" content="https://www.elajiseco.cl">
+  <meta property="og:site_name" content="El Ají Seco del Mar">
+
+  <!-- Tipografía & Estilos -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css">
+  <link rel="stylesheet" href="static/css/ajiseco.css">
+
+  <!-- Schema.org Restaurant -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "El Ají Seco del Mar",
+    "telephone": "+56322685463",
+    "url": "https://www.elajiseco.cl",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. San Martín 230",
+      "addressLocality": "Viña del Mar",
+      "addressRegion": "Valparaíso",
+      "addressCountry": "CL"
+    },
+    "servesCuisine": "Peruana, Marina, Criolla",
+    "priceRange": "$$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "12:00",
+        "closes": "24:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday"],
+        "opens": "12:00",
+        "closes": "20:45"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Header Flotante en Píldora (Estándar Arko Sushi) -->
+  <header class="site-header">
+    <div class="header-pill">
+      <a href="#inicio" class="header-brand" aria-label="El Ají Seco del Mar, inicio">
+        <img src="static/img/logo-aji-seco.png" alt="El Ají Seco" style="height: 32px; width: auto; object-fit: contain; margin-right: 0.35rem;">
+        <strong>El Ají Seco</strong>
+        <span>del Mar · Viña</span>
+      </a>
+
+      <nav class="header-nav" aria-label="Navegación principal">
+        <a href="#inicio">El Paseo</a>
+        <a href="#carta">La Carta</a>
+        <a href="#experiencias">Menú Ejecutivo</a>
+        <a href="#filosofia">Filosofía</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+          Menú Ejecutivo (PDF)
+        </a>
+        <a href="#reservar" class="btn btn-primary btn-sm">
+          Reservar
+        </a>
+        <button type="button" class="menu-toggle" aria-expanded="false" aria-label="Abrir menú">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menú Móvil Modal -->
+  <div id="menu" class="mobile-menu invisible" inert>
+    <ul class="mobile-menu-list">
+      <li><a href="#inicio" data-menu-link>El Paseo</a></li>
+      <li><a href="#carta" data-menu-link>La Carta</a></li>
+      <li><a href="#experiencias" data-menu-link>Menú Ejecutivo</a></li>
+      <li><a href="#filosofia" data-menu-link>Filosofía</a></li>
+      <li><a href="#preguntas" data-menu-link>Preguntas</a></li>
+      <li style="padding-top: 1rem;">
+        <a href="#reservar" class="btn btn-primary" data-menu-link>Reservar mesa</a>
+      </li>
+    </ul>
+
+    <div style="text-align: center; font-size: 0.85rem; color: var(--color-crema-muted);">
+      <p>San Martín nº 230 · Viña del Mar</p>
+      <p style="margin-top: 0.4rem;">Lun a Sáb 12:00 a 00:00 · Dom hasta las 20:45</p>
+    </div>
+  </div>
+
+  <!-- Contenido Principal -->
+  <main id="contenido">
+    
+    <!-- ==========================================================================
+         SCROLL WORLD CINEMÁTICO — ARKO SUSHI WALKTHROUGH
+         ========================================================================== -->
+    <section id="recorrido" data-world aria-label="Paseo por El Ají Seco del Mar">
+      
+      <!-- Escenario Fijo 100lvh -->
+      <div data-stage style="--focus-x: 50%">
+        <div aria-hidden="true" class="frames-wrapper">
+          
+          <!-- Fotogramas Reales del Restaurante El Ají Seco -->
+          <div data-frame class="frame" style="opacity: 1">
+            <img src="static/img/paseo/paseo-1.webp" alt="Fachada exterior y terraza de El Ají Seco" loading="eager" fetchpriority="high">
+          </div>
+          <div data-frame class="frame" style="opacity: 0">
+            <img src="static/img/paseo/paseo-2.webp" alt="Causa de pulpo y mariscos de El Ají Seco" loading="lazy">
+          </div>
+          <div data-frame class="frame" style="opacity: 0">
+            <img src="static/img/paseo/paseo-3.webp" alt="Salón comedor y fuegos de El Ají Seco" loading="lazy">
+          </div>
+          <div data-frame class="frame" style="opacity: 0">
+            <img src="static/img/paseo/paseo-4.webp" alt="Barra de cócteles y alambique de pisco de El Ají Seco" loading="lazy">
+          </div>
+          <div data-frame class="frame" style="opacity: 0">
+            <img src="static/img/paseo/paseo-5.webp" alt="Salón principal de El Ají Seco en Viña del Mar" loading="lazy">
+          </div>
+          <div data-frame class="frame" style="opacity: 0">
+            <img src="static/img/paseo/paseo-6.webp" alt="Terraza marina y mesas de El Ají Seco en Viña del Mar" loading="lazy">
+          </div>
+
+        </div>
+
+        <!-- Velos Cinemáticos de Lectura -->
+        <div aria-hidden="true" class="scrim-top"></div>
+        <div aria-hidden="true" class="scrim-main"></div>
+        <div aria-hidden="true" class="scrim-bottom"></div>
+
+        <!-- Raíl de Paradas Lateral (Arko Style) -->
+        <nav aria-label="Paradas del paseo" class="world-rail">
+          <ol class="world-rail-list">
+            <span aria-hidden="true" class="rail-track-line">
+              <span data-rail-fill class="rail-track-fill"></span>
+            </span>
+            <li>
+              <a href="#inicio" data-goto aria-current="true" class="rail-link">
+                <span class="rail-label">La Entrada · San Martín 230</span>
+                <span class="rail-dot-wrap"><span class="rail-dot"></span></span>
+              </a>
+            </li>
+            <li>
+              <a href="#cebiches" data-goto aria-current="false" class="rail-link">
+                <span class="rail-label">Barra Cebichera & Pesca</span>
+                <span class="rail-dot-wrap"><span class="rail-dot"></span></span>
+              </a>
+            </li>
+            <li>
+              <a href="#wok" data-goto aria-current="false" class="rail-link">
+                <span class="rail-label">Fuego y Wok Criollo</span>
+                <span class="rail-dot-wrap"><span class="rail-dot"></span></span>
+              </a>
+            </li>
+            <li>
+              <a href="#piscobar" data-goto aria-current="false" class="rail-link">
+                <span class="rail-label">Cava & Pisco Bar</span>
+                <span class="rail-dot-wrap"><span class="rail-dot"></span></span>
+              </a>
+            </li>
+            <li>
+              <a href="#ejecutivo" data-goto aria-current="false" class="rail-link">
+                <span class="rail-label">Menú Ejecutivo Viña</span>
+                <span class="rail-dot-wrap"><span class="rail-dot"></span></span>
+              </a>
+            </li>
+            <li>
+              <a href="#como-reservar" data-goto aria-current="false" class="rail-link">
+                <span class="rail-label">Mesa Reservada</span>
+                <span class="rail-dot-wrap"><span class="rail-dot"></span></span>
+              </a>
+            </li>
+          </ol>
+        </nav>
+
+        <!-- Indicador de Desplazamiento -->
+        <p data-hint aria-hidden="true" class="world-hint">
+          Desliza para recorrer El Ají Seco
+          <span class="hint-line"></span>
+        </p>
+
+      </div>
+
+      <!-- Paradas Narrativas -->
+      <div class="stops-wrapper">
+        
+        <!-- Parada 0: La Entrada -->
+        <article id="inicio" data-stop data-focus="50" class="stop is-current">
+          <div class="stop-body">
+            <div class="stop-meta">
+              <span>01 / 06</span>
+              <span class="stop-meta-dot" aria-hidden="true"></span>
+              <span>Av. San Martín 230 · Viña del Mar</span>
+            </div>
+            <p class="stop-eyebrow">Gastronomía Marina & Tradición Peruana</p>
+            <h1 class="hero-title">
+              Cocina marina y criolla<br>
+              con alma del Pacífico
+            </h1>
+            <p class="stop-body-text">
+              La disciplina culinaria peruana dialoga con el producto fresco de nuestras costas chilenas. Pescados frescos, cortes al wok y coctelería tradicional, todos los días de 12:00 a 00:00.
+            </p>
+            <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center;">
+              <a href="#reservar" class="btn btn-primary"><span>Reservar mesa</span></a>
+              <a href="https://drive.google.com/file/d/170K6LLQenv_8Ctomo8HTva3OzuKd4Dz-/view" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                <span>Ver Carta Completa (PDF Drive)</span>
+              </a>
+            </div>
+            <ul class="pill-list" aria-label="Nuestras credenciales">
+              <li class="pill-item">Pesca fresca del día</li>
+              <li class="pill-item">A pasos de la playa de Viña</li>
+              <li class="pill-item">Leche de tigre al instante</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Parada 1: Barra Cebichera -->
+        <article id="cebiches" data-stop data-focus="50" class="stop">
+          <div class="stop-body">
+            <div class="stop-meta">
+              <span>02 / 06</span>
+              <span class="stop-meta-dot" aria-hidden="true"></span>
+              <span>Barra Cebichera</span>
+            </div>
+            <p class="stop-eyebrow">Pesca del Día & Leche de Tigre</p>
+            <h2 class="stop-title">Pescado fresco con limón recién exprimido</h2>
+            <p class="stop-body-text">
+              Corvina, reineta, pulpo tierno y camarones seleccionados marinados al instante con ají limo, cebolla morada crujiente, choclo tierno y camote glaseado. Directo de la lonja marina a su mesa.
+            </p>
+            <div class="stat-grid">
+              <div class="stat-card">
+                <span class="stat-value">100 %</span>
+                <span class="stat-label">Captura marina artesanal fresca</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value">Al momento</span>
+                <span class="stat-label">Leche de tigre extra virgen</span>
+              </div>
+            </div>
+            <div style="margin-top: 1.5rem;">
+              <a href="#carta" class="btn btn-outline btn-sm"><span>Ver cebiches en la carta</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Parada 2: Fuego y Wok -->
+        <article id="wok" data-stop data-focus="50" class="stop">
+          <div class="stop-body">
+            <div class="stop-meta">
+              <span>03 / 06</span>
+              <span class="stop-meta-dot" aria-hidden="true"></span>
+              <span>Fuego y Wok Criollo</span>
+            </div>
+            <p class="stop-eyebrow">Tradición a 300°C</p>
+            <h2 class="stop-title">El aroma del wok y el lomo flameado al pisco</h2>
+            <p class="stop-body-text">
+              Cortes de filete premium salteados a fuego vivo con cebolla morada crujiente, tomates frescos, cebollín y reducción criolla de soya y vinagre sobre papas doradas y arroz al punto.
+            </p>
+            <div class="stat-grid">
+              <div class="stat-card">
+                <span class="stat-value">300°C</span>
+                <span class="stat-label">Temperatura viva del wok</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value">Filete</span>
+                <span class="stat-label">Corte vacuno de selección</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Parada 3: Cava & Pisco Bar -->
+        <article id="piscobar" data-stop data-focus="50" class="stop">
+          <div class="stop-body">
+            <div class="stop-meta">
+              <span>04 / 06</span>
+              <span class="stop-meta-dot" aria-hidden="true"></span>
+              <span>Cava & Pisco Bar</span>
+            </div>
+            <p class="stop-eyebrow">Coctelería Catedral</p>
+            <h2 class="stop-title">Pisco Sour Catedral y macerados de la casa</h2>
+            <p class="stop-body-text">
+              Nuestra copa insignia: Pisco Sour Catedral elaborado con destilado de uva Quebranta pura, limón sutil y amargo de angostura en copa de 500cc. Además, macerados artesanales de maracuyá y chicha morada.
+            </p>
+            <div class="stat-grid">
+              <div class="stat-card">
+                <span class="stat-value">500 cc</span>
+                <span class="stat-label">Formato Catedral tradicional</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value">100 % Puro</span>
+                <span class="stat-label">Destilado de uva Quebranta</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Parada 4: Menú Ejecutivo -->
+        <article id="ejecutivo" data-stop data-focus="50" class="stop">
+          <div class="stop-body">
+            <div class="stop-meta">
+              <span>05 / 06</span>
+              <span class="stop-meta-dot" aria-hidden="true"></span>
+              <span>Servicio Ejecutivo</span>
+            </div>
+            <p class="stop-eyebrow">Lunes a Viernes de 12:00 a 16:30 hrs</p>
+            <h2 class="stop-title">Almuerzo de primer nivel a precio cerrado en Viña</h2>
+            <p class="stop-body-text">
+              Entrada a elección, plato de fondo de la carta criolla o marina, postre casero o café y bebestible incluido. Diseñado para quienes exigen rapidez, abundancia y la más alta calidad gastronómica.
+            </p>
+            <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.8rem;">
+              <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                <span>Descargar Menú Ejecutivo (PDF)</span>
+              </a>
+              <a href="#experiencias" class="btn btn-outline">
+                <span>Ver detalles del menú</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Parada 5: Cómo Reservar -->
+        <article id="como-reservar" data-stop data-focus="50" class="stop">
+          <div class="stop-body">
+            <div class="stop-meta">
+              <span>06 / 06</span>
+              <span class="stop-meta-dot" aria-hidden="true"></span>
+              <span>Cómo Funciona</span>
+            </div>
+            <p class="stop-eyebrow">Tu Mesa en San Martín 230</p>
+            <h2 class="stop-title">Tu experiencia, en tres pasos</h2>
+            <ol style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; list-style: none;">
+              <li style="display: flex; gap: 1rem; align-items: baseline;">
+                <span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-teja);">1</span>
+                <div>
+                  <h3 style="font-size: 1.1rem; color: var(--color-crema);">Reserva online o por WhatsApp</h3>
+                  <p style="font-size: 0.9rem; color: var(--color-crema-muted);">Elige día, hora y número de comensales en segundos.</p>
+                </div>
+              </li>
+              <li style="display: flex; gap: 1rem; align-items: baseline;">
+                <span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-teja);">2</span>
+                <div>
+                  <h3 style="font-size: 1.1rem; color: var(--color-crema);">Ven a San Martín 230</h3>
+                  <p style="font-size: 0.9rem; color: var(--color-crema-muted);">Abrimos todos los días desde las 12:00 hrs a pasos de la costa.</p>
+                </div>
+              </li>
+              <li style="display: flex; gap: 1rem; align-items: baseline;">
+                <span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-teja);">3</span>
+                <div>
+                  <h3 style="font-size: 1.1rem; color: var(--color-crema);">Elige cómo disfrutar</h3>
+                  <p style="font-size: 0.9rem; color: var(--color-crema-muted);">A la carta o con nuestro Menú Ejecutivo diario.</p>
+                </div>
+              </li>
+            </ol>
+            <div style="margin-top: 2rem;">
+              <a href="#reservar" class="btn btn-primary"><span>Reservar mesa ahora</span></a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN DE FILOSOFÍA / TAGLINE CON PALABRAS ILUMINADAS (ARKO STYLE)
+         ========================================================================== -->
+    <section id="filosofia" class="tagline-section" aria-label="Nuestra filosofía">
+      <div class="tagline-container">
+        <p data-words class="tagline-words">
+          <span class="block">
+            <span data-word class="word">Sin</span>{' '}
+            <span data-word class="word">concesiones:</span>{' '}
+          </span>
+          <span class="block">
+            <span data-word class="word">técnica</span>{' '}
+            <span data-word class="word">peruana</span>{' '}
+            <span data-word class="word">milenaria,</span>{' '}
+          </span>
+          <span class="block">
+            <span data-word class="word">ingredientes</span>{' '}
+            <span data-word class="word">frescos</span>{' '}
+            <span data-word class="word">del</span>{' '}
+            <span data-word class="word">mar</span>{' '}
+            <span data-word class="word">pacífico,</span>{' '}
+          </span>
+          <span class="block">
+            <span data-word class="word">sabor</span>{' '}
+            <span data-word class="word">inconfundible</span>{' '}
+            <span data-word class="word">de</span>{' '}
+            <span data-word class="word">Viña</span>{' '}
+            <span data-word class="word">del</span>{' '}
+            <span data-word class="word">Mar.</span>
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PLATOS DESTACADOS — LISTA EDITORIAL NUMERADA
+         ========================================================================== -->
+    <section id="carta" class="dishes-section">
+      <div class="section-header">
+        <div>
+          <p class="section-tag">Platos destacados</p>
+          <h2 class="section-title">Lo que llega a la mesa</h2>
+        </div>
+        <a href="https://drive.google.com/file/d/170K6LLQenv_8Ctomo8HTva3OzuKd4Dz-/view" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+          <span>Ver la carta completa (PDF en Drive)</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <ol class="dishes-list">
+        <li class="dish-row">
+          <span class="dish-num">01</span>
+          <div class="dish-info">
+            <h3>Ceviche Clásico de Corvina</h3>
+            <p>Trozos de corvina fresca del Pacífico marinados al momento con jugo de limón de pica, ají limo, cebolla morada crujiente, choclo tierno y camote glaseado.</p>
+          </div>
+          <span class="dish-price">14.900 CLP</span>
+        </li>
+
+        <li class="dish-row">
+          <span class="dish-num">02</span>
+          <div class="dish-info">
+            <h3>Causa Limeña de Centolla & Camarón</h3>
+            <p>Prensado suave de papa amarilla aliñada con pasta de ají amarillo y limón sutil, rellena de centolla austral, camarones ecuatorianos y palta hass en finas láminas.</p>
+          </div>
+          <span class="dish-price">16.500 CLP</span>
+        </li>
+
+        <li class="dish-row">
+          <span class="dish-num">03</span>
+          <div class="dish-info">
+            <h3>Lomo Saltado al Wok Criollo</h3>
+            <p>Tiras de filete premium salteadas a fuego vivo con cebolla morada, tomates frescos, cebollín y cilantro con reducción de soya y vinagre. Acompañado de papas doradas y arroz criollo.</p>
+          </div>
+          <span class="dish-price">15.800 CLP</span>
+        </li>
+
+        <li class="dish-row">
+          <span class="dish-num">04</span>
+          <div class="dish-info">
+            <h3>Pescado a lo Macho El Ají Seco</h3>
+            <p>Filete de reineta a la plancha bañado en una suntuosa salsa de mariscos (camarones, calamares y ostiones) con toque de vino blanco y ají panca tradicional.</p>
+          </div>
+          <span class="dish-price">17.200 CLP</span>
+        </li>
+
+        <li class="dish-row">
+          <span class="dish-num">05</span>
+          <div class="dish-info">
+            <h3>Pisco Sour Catedral Tradicional</h3>
+            <p>Preparado con pisco Quebranta peruano, limón sutil recién exprimido, jarabe de goma y clara de huevo pasteurizada. Servido en copa Catedral de 500cc con gotas de amargo de angostura.</p>
+          </div>
+          <span class="dish-price">8.900 CLP</span>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ==========================================================================
+         EXPERIENCIAS Y MENÚ EJECUTIVO
+         ========================================================================== -->
+    <section id="experiencias" class="experiences-section">
+      <div class="section-header">
+        <div>
+          <p class="section-tag">Experiencias gastronómicas</p>
+          <h2 class="section-title">Menús cerrados & almuerzos ejecutivos</h2>
+          <p style="margin-top: 0.75rem; color: var(--color-crema-muted);">Sabes exactamente lo que cuesta antes de sentarte a la mesa.</p>
+        </div>
+      </div>
+
+      <div class="experiences-grid">
+        <!-- Card 1: Menú Ejecutivo -->
+        <article class="experience-card featured">
+          <span class="card-badge">Lunes a Viernes</span>
+          <h3 class="experience-title">Menú Ejecutivo Viña</h3>
+          <p class="experience-desc">Almuerzo completo de 4 tiempos: entrada a elección, plato de fondo criollo o marino, postre casero o café y bebestible incluido.</p>
+          <div class="experience-price-block">
+            <span class="experience-price">12.900</span>
+            <span class="experience-sub">CLP por persona</span>
+          </div>
+          <div class="experience-cta">
+            <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%;">
+              <span>Ver Menú Ejecutivo (PDF)</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 2: Experiencia Marina para Dos -->
+        <article class="experience-card">
+          <h3 class="experience-title">Experiencia Marina para Dos</h3>
+          <p class="experience-desc">Recorrido insigne para compartir: Ceviche Mixto, Causa de Centolla, Lomo Saltado o Pescado a lo Macho, postre tradicional y 2 Pisco Sour Catedral.</p>
+          <div class="experience-price-block">
+            <span class="experience-price">48.000</span>
+            <span class="experience-sub">CLP total (para 2)</span>
+          </div>
+          <div class="experience-cta">
+            <a href="#reservar" class="btn btn-outline" style="width: 100%;">
+              <span>Reservar experiencia</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 3: Maridaje & Cava -->
+        <article class="experience-card">
+          <h3 class="experience-title">Cava & Coctelería de Autor</h3>
+          <p class="experience-desc">Selección armonizada de vinos del Valle de Casablanca, Colchagua y macerados artesanales de pisco Quebranta con frutas autóctonas.</p>
+          <div class="experience-price-block">
+            <span class="experience-price">+18.000</span>
+            <span class="experience-sub">CLP maridaje para dos</span>
+          </div>
+          <div class="experience-cta">
+            <a href="https://drive.google.com/file/d/170K6LLQenv_8Ctomo8HTva3OzuKd4Dz-/view" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="width: 100%;">
+              <span>Consultar Cava (Drive)</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PREGUNTAS FRECUENTES (FAQ)
+         ========================================================================== -->
+    <section id="preguntas" class="faq-section">
+      <div class="section-header">
+        <div>
+          <p class="section-tag">Preguntas frecuentes</p>
+          <h2 class="section-title">Todo lo que necesitas saber</h2>
+        </div>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3 class="faq-question">¿Dónde está ubicado El Ají Seco del Mar?</h3>
+          <p class="faq-answer">Nos encontramos en San Martín nº 230, en pleno polo gastronómico de Viña del Mar, a solo metros de la playa y con fácil acceso.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question">¿Cuál es el horario del restaurante?</h3>
+          <p class="faq-answer">Abrimos de lunes a sábado de 12:00 a 00:00 hrs en horario continuo, y los domingos de 12:00 a 20:45 hrs.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question">¿Cómo funciona el Menú Ejecutivo de Viña del Mar?</h3>
+          <p class="faq-answer">Está disponible de lunes a viernes entre las 12:00 y las 16:30 hrs. Incluye entrada, plato de fondo, postre o café y bebestible con precio cerrado. Puedes descargarlo en PDF directamente desde esta página.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question">¿Es necesario reservar con anticipación?</h3>
+          <p class="faq-answer">Recomendamos reservar especialmente para los fines de semana y almuerzos de negocios. Puedes hacerlo mediante el formulario a continuación o a través de nuestro WhatsApp oficial.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FORMULARIO DE RESERVA DE ALTO NIVEL
+         ========================================================================== -->
+    <section id="reservar" class="booking-section">
+      <div class="section-header" style="margin-bottom: 2.5rem; text-align: center; align-items: center;">
+        <div>
+          <p class="section-tag">Reserva tu mesa</p>
+          <h2 class="section-title">Asegura tu lugar en San Martín 230</h2>
+          <p style="margin-top: 0.5rem; color: var(--color-crema-muted);">Confirmación inmediata y atención preferente en el restaurante.</p>
+        </div>
+      </div>
+
+      <div class="booking-box">
+        <form id="booking-form" novalidate>
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label for="res-nombre">Nombre y Apellido *</label>
+              <input type="text" id="res-nombre" name="nombre_cliente" required placeholder="Ej: Francisca Silva">
+            </div>
+            <div class="form-group">
+              <label for="res-telefono">Teléfono / WhatsApp *</label>
+              <input type="tel" id="res-telefono" name="telefono" required placeholder="+56 9 1234 5678">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="res-email">Correo Electrónico *</label>
+            <input type="email" id="res-email" name="email" required placeholder="tu-correo@ejemplo.cl">
+          </div>
+
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label for="res-fecha">Fecha de Visita *</label>
+              <input type="date" id="res-fecha" name="fecha" required>
+            </div>
+            <div class="form-group">
+              <label for="res-hora">Hora Estimada *</label>
+              <select id="res-hora" name="hora" required>
+                <option value="" disabled selected>Seleccione horario</option>
+                <optgroup label="Almuerzo">
+                  <option value="12:30">12:30 hrs</option>
+                  <option value="13:00">13:00 hrs</option>
+                  <option value="13:30">13:30 hrs</option>
+                  <option value="14:00">14:00 hrs</option>
+                  <option value="14:30">14:30 hrs</option>
+                  <option value="15:00">15:00 hrs</option>
+                </optgroup>
+                <optgroup label="Cena">
+                  <option value="19:30">19:30 hrs</option>
+                  <option value="20:00">20:00 hrs</option>
+                  <option value="20:30">20:30 hrs</option>
+                  <option value="21:00">21:00 hrs</option>
+                  <option value="21:30">21:30 hrs</option>
+                  <option value="22:00">22:00 hrs</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label for="res-comensales">Número de Personas *</label>
+              <select id="res-comensales" name="comensales" required>
+                <option value="2" selected>2 personas</option>
+                <option value="3">3 personas</option>
+                <option value="4">4 personas</option>
+                <option value="5">5 personas</option>
+                <option value="6">6 personas</option>
+                <option value="8">8 personas</option>
+                <option value="10">10+ personas</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="res-zona">Preferencia de Ubicación</label>
+              <select id="res-zona" name="zona_slug">
+                <option value="terraza-san-martin" selected>San Martín nº 230</option>
+                <option value="salon-principal">Salón Principal</option>
+                <option value="barra-cebichera">Barra Cebichera & Pisco Bar</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="res-notas">Notas Especiales (Opcional)</label>
+            <textarea id="res-notas" name="notas_especiales" rows="2" placeholder="Cumpleaños, aniversario, requerimientos dietarios..."></textarea>
+          </div>
+
+          <div id="booking-feedback" style="display: none; margin-bottom: 1.5rem; padding: 1rem; border-radius: 0.75rem; font-size: 0.9rem;"></div>
+
+          <button type="submit" id="btn-submit-booking" class="btn btn-primary" style="width: 100%; min-height: 50px; font-size: 1rem;">
+            <span>Solicitar Reserva</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Corporativo -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <h2 style="font-family: var(--font-display); font-size: 2rem; color: var(--color-crema);">El Ají Seco del Mar</h2>
+          <p style="color: var(--color-teja); font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 0.25rem;">San Martín nº 230 · Viña del Mar</p>
+          <p style="color: var(--color-crema-muted); max-width: 420px; margin-top: 1rem; font-size: 0.95rem;">
+            La más alta cocina tradicional peruana y marina en la costa de Viña del Mar. Pescados frescos del Pacífico, cortes premium al wok y coctelería de autor.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-teja); margin-bottom: 0.8rem;">Enlaces & Documentos</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.92rem; color: var(--color-crema-muted);">
+            <li><a href="https://drive.google.com/file/d/170K6LLQenv_8Ctomo8HTva3OzuKd4Dz-/view" target="_blank" rel="noopener noreferrer" style="color: var(--color-crema);">📖 Carta Completa (PDF en Drive)</a></li>
+            <li><a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" style="color: var(--color-crema);">🍽️ Menú Ejecutivo Viña (PDF)</a></li>
+            <li><a href="https://maps.google.com/?q=Av.+San+Martín+230,+Viña+del+Mar" target="_blank" rel="noopener noreferrer">📍 San Martín 230 en Google Maps</a></li>
+            <li><a href="https://www.instagram.com/elajiseco_delmar" target="_blank" rel="noopener noreferrer">📷 Instagram @elajiseco_delmar</a></li>
+            <li><a href="tel:+56322685463">📞 +56 32 268 5463</a></li>
+            <li><a href="https://wa.me/56958259443" target="_blank" rel="noopener noreferrer">💬 +56 9 5825 9443 (WhatsApp)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-teja); margin-bottom: 0.8rem;">Horarios de Servicio</h4>
+          <p style="font-size: 0.92rem; color: var(--color-crema-muted);"><b>Lunes a Sábado:</b><br>12:00 a 00:00 hrs</p>
+          <p style="font-size: 0.92rem; color: var(--color-crema-muted); margin-top: 0.6rem;"><b>Domingos:</b><br>12:00 a 20:45 hrs</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 El Ají Seco del Mar. Todos los derechos reservados. San Martín 230, Viña del Mar.</p>
+        <p>Desarrollado bajo Arquitectura Limpia, Lenis & GSAP ScrollTrigger.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Asistente Concierge Discreto (Sin tapar contenido) -->
+  <div class="wa-concierge-container">
+    <div class="wa-concierge-card" id="wa-concierge-card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h4 style="font-size: 0.9rem; color: var(--color-crema);">Asistente El Ají Seco</h4>
+        <button id="wa-concierge-close" style="background: none; border: none; color: var(--color-crema-muted); cursor: pointer; font-size: 1rem;">✕</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--color-crema-muted);">¿En qué podemos ayudarte antes de contactar al restaurante?</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <a href="#reservar" class="wa-bot-opt" data-action="scroll" data-payload="#reservar">
+          <span>📅 Reservar una Mesa</span>
+          <span>→</span>
+        </a>
+        <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="wa-bot-opt">
+          <span>🍽️ Ver Menú Ejecutivo de hoy (PDF)</span>
+          <span>↗</span>
+        </a>
+        <a href="https://drive.google.com/file/d/170K6LLQenv_8Ctomo8HTva3OzuKd4Dz-/view" target="_blank" rel="noopener noreferrer" class="wa-bot-opt">
+          <span>📖 Ver Carta Completa (Drive PDF)</span>
+          <span>↗</span>
+        </a>
+        <a href="https://wa.me/56958259443?text=%C2%A1Hola%20El%20Aj%C3%AD%20Seco%20del%20Mar!%20Quisiera%20hacer%20una%20consulta%20directa." target="_blank" rel="noopener noreferrer" class="wa-bot-opt">
+          <span>💬 Conversar por WhatsApp</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+
+    <button class="wa-concierge-trigger" id="wa-concierge-trigger" aria-label="Abrir asistente de WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.073-2.18-.543-1.895-.788-3.09-2.73-3.184-2.857-.094-.127-.768-1.02-.768-1.947 0-.928.487-1.381.66-1.571.173-.19.378-.238.504-.238.127 0 .253.002.363.007.117.005.273-.044.427.327.16.386.545 1.332.593 1.43.048.098.08.213.016.34-.064.127-.096.206-.19.317-.095.111-.2.247-.286.333-.095.095-.195.198-.084.388.111.19.493.813 1.057 1.316.726.647 1.338.848 1.528.943.19.095.301.079.412-.048.111-.127.476-.554.603-.744.127-.19.253-.159.428-.095.174.063 1.11.523 1.3.618.19.095.317.142.364.222.048.08.048.46-.096.865z"/></svg>
+      <span>¿Dudas?</span>
+    </button>
+  </div>
+
+  <!-- Librerías de Cinemática Idénticas a Arko Sushi -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Módulos de la Aplicación -->
+  <script src="static/js/world.js"></script>
+  <script src="static/js/motion.js"></script>
+  <script src="static/js/booking-widget.js"></script>
+  <script src="static/js/whatsapp-bot.js"></script>
+</body>
+</html>

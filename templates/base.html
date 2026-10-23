@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" class="js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}El Ají Seco del Mar | Cocina Marina & Criolla en Viña del Mar{% endblock %}</title>
+  
+  <meta name="description" content="{% block description %}Restaurante de cocina peruana, marina y criolla en Av. San Martín 230, Viña del Mar. Paseo inmersivo, Menú Ejecutivo diario, ceviches frescos del día y reservas online.{% endblock %}">
+  <meta name="theme-color" content="#131209">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="restaurant">
+  <meta property="og:title" content="El Ají Seco del Mar — Viña del Mar">
+  <meta property="og:description" content="Auténtica tradición marina y criolla del Perú en Av. San Martín 230, Viña del Mar. Menú Ejecutivo y Reservas.">
+  <meta property="og:url" content="https://www.elajiseco.cl">
+  <meta property="og:site_name" content="El Ají Seco del Mar">
+
+  <!-- Tipografía & Estilos -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css">
+  <link rel="stylesheet" href="{% static 'css/ajiseco.css' %}">
+
+  <!-- Schema.org Restaurant -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "El Ají Seco del Mar",
+    "telephone": "+56322685463",
+    "url": "https://www.elajiseco.cl",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. San Martín 230",
+      "addressLocality": "Viña del Mar",
+      "addressRegion": "Valparaíso",
+      "addressCountry": "CL"
+    },
+    "servesCuisine": "Peruana, Marina, Criolla",
+    "priceRange": "$$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "12:00",
+        "closes": "24:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday"],
+        "opens": "12:00",
+        "closes": "20:45"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Header Flotante en Píldora (Estándar Arko Sushi) -->
+  <header class="site-header">
+    <div class="header-pill">
+      <a href="#inicio" class="header-brand" aria-label="El Ají Seco del Mar, inicio">
+        <img src="{% static 'img/logo-aji-seco.png' %}" alt="El Ají Seco" style="height: 32px; width: auto; object-fit: contain; margin-right: 0.35rem;">
+        <strong>El Ají Seco</strong>
+        <span>del Mar · Viña</span>
+      </a>
+
+      <nav class="header-nav" aria-label="Navegación principal">
+        <a href="#inicio">El Paseo</a>
+        <a href="#carta">La Carta</a>
+        <a href="#experiencias">Menú Ejecutivo</a>
+        <a href="#filosofia">Filosofía</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+          Menú Ejecutivo (PDF)
+        </a>
+        <a href="#reservar" class="btn btn-primary btn-sm">
+          Reservar
+        </a>
+        <button type="button" class="menu-toggle" aria-expanded="false" aria-label="Abrir menú">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menú Móvil Modal -->
+  <div id="menu" class="mobile-menu invisible" inert>
+    <ul class="mobile-menu-list">
+      <li><a href="#inicio" data-menu-link>El Paseo</a></li>
+      <li><a href="#carta" data-menu-link>La Carta</a></li>
+      <li><a href="#experiencias" data-menu-link>Menú Ejecutivo</a></li>
+      <li><a href="#filosofia" data-menu-link>Filosofía</a></li>
+      <li><a href="#preguntas" data-menu-link>Preguntas</a></li>
+      <li style="padding-top: 1rem;">
+        <a href="#reservar" class="btn btn-primary" data-menu-link>Reservar mesa</a>
+      </li>
+    </ul>
+
+    <div style="text-align: center; font-size: 0.85rem; color: var(--color-crema-muted);">
+      <p>San Martín nº 230 · Viña del Mar</p>
+      <p style="margin-top: 0.4rem;">Lun a Sáb 12:00 a 00:00 · Dom hasta las 20:45</p>
+    </div>
+  </div>
+
+  <!-- Contenido Principal -->
+  <main id="contenido">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer Corporativo -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <h2 style="font-family: var(--font-display); font-size: 2rem; color: var(--color-crema);">El Ají Seco del Mar</h2>
+          <p style="color: var(--color-teja); font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 0.25rem;">San Martín nº 230 · Viña del Mar</p>
+          <p style="color: var(--color-crema-muted); max-width: 420px; margin-top: 1rem; font-size: 0.95rem;">
+            La más alta cocina tradicional peruana y marina en la costa de Viña del Mar. Pescados frescos del Pacífico, cortes premium al wok y coctelería de autor.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-teja); margin-bottom: 0.8rem;">Enlaces & Documentos</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.92rem; color: var(--color-crema-muted);">
+            <li><a href="https://drive.google.com/file/d/170K6LLQenv_8Ctomo8HTva3OzuKd4Dz-/view" target="_blank" rel="noopener noreferrer" style="color: var(--color-crema);">📖 Carta Completa (PDF en Drive)</a></li>
+            <li><a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" style="color: var(--color-crema);">🍽️ Menú Ejecutivo Viña (PDF)</a></li>
+            <li><a href="https://maps.google.com/?q=Av.+San+Martín+230,+Viña+del+Mar" target="_blank" rel="noopener noreferrer">📍 San Martín 230 en Google Maps</a></li>
+            <li><a href="https://www.instagram.com/elajiseco_delmar" target="_blank" rel="noopener noreferrer">📷 Instagram @elajiseco_delmar</a></li>
+            <li><a href="tel:+56322685463">📞 +56 32 268 5463</a></li>
+            <li><a href="https://wa.me/56958259443" target="_blank" rel="noopener noreferrer">💬 +56 9 5825 9443 (WhatsApp)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-teja); margin-bottom: 0.8rem;">Horarios de Servicio</h4>
+          <p style="font-size: 0.92rem; color: var(--color-crema-muted);"><b>Lunes a Sábado:</b><br>12:00 a 00:00 hrs</p>
+          <p style="font-size: 0.92rem; color: var(--color-crema-muted); margin-top: 0.6rem;"><b>Domingos:</b><br>12:00 a 20:45 hrs</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 El Ají Seco del Mar. Todos los derechos reservados. San Martín 230, Viña del Mar.</p>
+        <p>Desarrollado bajo Arquitectura Limpia, Lenis & GSAP ScrollTrigger.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Asistente Concierge Discreto (Sin tapar contenido) -->
+  <div class="wa-concierge-container">
+    <div class="wa-concierge-card" id="wa-concierge-card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h4 style="font-size: 0.9rem; color: var(--color-crema);">Asistente El Ají Seco</h4>
+        <button id="wa-concierge-close" style="background: none; border: none; color: var(--color-crema-muted); cursor: pointer; font-size: 1rem;">✕</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--color-crema-muted);">¿En qué podemos ayudarte antes de contactar al restaurante?</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <a href="#reservar" class="wa-bot-opt" data-action="scroll" data-payload="#reservar">
+          <span>📅 Reservar una Mesa</span>
+          <span>→</span>
+        </a>
+        <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="wa-bot-opt">
+          <span>🍽️ Ver Menú Ejecutivo de hoy (PDF)</span>
+          <span>↗</span>
+        </a>
+        <a href="https://drive.google.com/file/d/170K6LLQenv_8Ctomo8HTva3OzuKd4Dz-/view" target="_blank" rel="noopener noreferrer" class="wa-bot-opt">
+          <span>📖 Ver Carta Completa (Drive PDF)</span>
+          <span>↗</span>
+        </a>
+        <a href="https://wa.me/56958259443?text=%C2%A1Hola%20El%20Aj%C3%AD%20Seco%20del%20Mar!%20Quisiera%20hacer%20una%20consulta%20directa." target="_blank" rel="noopener noreferrer" class="wa-bot-opt">
+          <span>💬 Conversar por WhatsApp</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+
+    <button class="wa-concierge-trigger" id="wa-concierge-trigger" aria-label="Abrir asistente de WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.073-2.18-.543-1.895-.788-3.09-2.73-3.184-2.857-.094-.127-.768-1.02-.768-1.947 0-.928.487-1.381.66-1.571.173-.19.378-.238.504-.238.127 0 .253.002.363.007.117.005.273-.044.427.327.16.386.545 1.332.593 1.43.048.098.08.213.016.34-.064.127-.096.206-.19.317-.095.111-.2.247-.286.333-.095.095-.195.198-.084.388.111.19.493.813 1.057 1.316.726.647 1.338.848 1.528.943.19.095.301.079.412-.048.111-.127.476-.554.603-.744.127-.19.253-.159.428-.095.174.063 1.11.523 1.3.618.19.095.317.142.364.222.048.08.048.46-.096.865z"/></svg>
+      <span>¿Dudas?</span>
+    </button>
+  </div>
+
+  <!-- Librerías de Cinemática Idénticas a Arko Sushi -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Módulos de la Aplicación -->
+  <script src="{% static 'js/world.js' %}"></script>
+  <script src="{% static 'js/motion.js' %}"></script>
+  <script src="{% static 'js/booking-widget.js' %}"></script>
+  <script src="{% static 'js/whatsapp-bot.js' %}"></script>
+</body>
+</html>

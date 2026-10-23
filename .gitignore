@@ -1,0 +1,23 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+*.db
+local_settings.py
+db.sqlite3
+
+# Entornos Virtuales
+venv/
+env/
+ENV/
+.env
+
+# Scripts temporales
+scrape_images.py
+setup_paseo_photos.py
+
+# Sistema y logs
+*.log
+.DS_Store
+Thumbs.db
