@@ -59,14 +59,16 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color-scheme: dark;
+  touch-action: pan-y;
 }
 
 body {
   background-color: var(--color-bg);
   color: var(--color-crema);
-  overflow-x: hidden;
+  overflow-x: clip;
   min-height: 100vh;
   line-height: 1.6;
+  touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -386,6 +388,18 @@ a {
   overflow: hidden;
   background-color: var(--color-bg);
   --focus-x: 50%;
+  pointer-events: none !important;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+[data-stage] * {
+  pointer-events: none !important;
+}
+
+[data-stage] .world-rail,
+[data-stage] .world-rail * {
+  pointer-events: auto !important;
 }
 
 .frames-wrapper {
@@ -644,10 +658,13 @@ a {
   z-index: 10;
   margin-top: -100vh;
   margin-top: -100lvh;
+  pointer-events: auto;
+  touch-action: pan-y;
 }
 
 .stop {
-  pointer-events: none;
+  pointer-events: auto;
+  touch-action: pan-y;
   display: flex;
   min-height: 100svh;
   flex-direction: column;
@@ -662,6 +679,7 @@ a {
 
 .stop-body {
   pointer-events: auto;
+  touch-action: pan-y;
   position: sticky;
   bottom: 0;
   display: flex;
