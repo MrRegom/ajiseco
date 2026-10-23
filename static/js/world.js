@@ -36,9 +36,9 @@
     const last = stops.length - 1;
     const focus = stops.map((stop) => Number(stop.dataset.focus || 50));
 
-    // Cada parada llega cuando su artículo toca el borde superior
+    // Cada parada llega cuando su artículo entra al centro de la pantalla
     const marks = stops.map((stop) =>
-      window.ScrollTrigger.create({ trigger: stop, start: 'top top' })
+      window.ScrollTrigger.create({ trigger: stop, start: 'top center' })
     );
 
     let current = -1;

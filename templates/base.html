@@ -18,7 +18,7 @@
 
   <!-- Tipografía & Estilos -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css">
-  <link rel="stylesheet" href="{% static 'css/ajiseco.css' %}">
+  <link rel="stylesheet" href="{% static 'css/ajiseco.css' %}?v=3.0">
 
   <!-- Schema.org Restaurant -->
   <script type="application/ld+json">
@@ -60,8 +60,7 @@
     <div class="header-pill">
       <a href="#inicio" class="header-brand" aria-label="El Ají Seco del Mar, inicio">
         <img src="{% static 'img/logo-aji-seco.png' %}" alt="El Ají Seco" class="header-brand-logo">
-        <strong class="header-brand-title">El Ají Seco</strong>
-        <span class="header-brand-sub">del Mar · Viña</span>
+        <span class="header-brand-name">El Ají Seco</span>
       </a>
 
       <nav class="header-nav" aria-label="Navegación principal">
@@ -73,8 +72,8 @@
       </nav>
 
       <div class="header-actions">
-        <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm header-btn-doc">
-          Menú Ejecutivo (PDF)
+        <a href="https://www.elajiseco.cl/wp-content/uploads/2026/01/MENUEJECUTIVO_MEGA_AJISECO_VINA.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm header-btn-menu" aria-label="Ver Menú">
+          Menú
         </a>
         <a href="#reservar" class="btn btn-primary btn-sm header-btn-reserve">
           Reservar
@@ -180,9 +179,9 @@
       </div>
     </div>
 
-    <button class="wa-concierge-trigger" id="wa-concierge-trigger" aria-label="Abrir asistente de WhatsApp">
-      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.073-2.18-.543-1.895-.788-3.09-2.73-3.184-2.857-.094-.127-.768-1.02-.768-1.947 0-.928.487-1.381.66-1.571.173-.19.378-.238.504-.238.127 0 .253.002.363.007.117.005.273-.044.427.327.16.386.545 1.332.593 1.43.048.098.08.213.016.34-.064.127-.096.206-.19.317-.095.111-.2.247-.286.333-.095.095-.195.198-.084.388.111.19.493.813 1.057 1.316.726.647 1.338.848 1.528.943.19.095.301.079.412-.048.111-.127.476-.554.603-.744.127-.19.253-.159.428-.095.174.063 1.11.523 1.3.618.19.095.317.142.364.222.048.08.048.46-.096.865z"/></svg>
-      <span>¿Dudas?</span>
+    <button class="wa-concierge-trigger" id="wa-concierge-trigger" aria-label="Abrir asistente de WhatsApp y reservas" title="Asistente El Ají Seco">
+      <span class="wa-concierge-pulse" aria-hidden="true"></span>
+      <svg width="24" height="24" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.073-2.18-.543-1.895-.788-3.09-2.73-3.184-2.857-.094-.127-.768-1.02-.768-1.947 0-.928.487-1.381.66-1.571.173-.19.378-.238.504-.238.127 0 .253.002.363.007.117.005.273-.044.427.327.16.386.545 1.332.593 1.43.048.098.08.213.016.34-.064.127-.096.206-.19.317-.095.111-.2.247-.286.333-.095.095-.195.198-.084.388.111.19.493.813 1.057 1.316.726.647 1.338.848 1.528.943.19.095.301.079.412-.048.111-.127.476-.554.603-.744.127-.19.253-.159.428-.095.174.063 1.11.523 1.3.618.19.095.317.142.364.222.048.08.048.46-.096.865z"/></svg>
     </button>
   </div>
 
@@ -192,9 +191,9 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Módulos de la Aplicación -->
-  <script src="{% static 'js/world.js' %}"></script>
-  <script src="{% static 'js/motion.js' %}"></script>
-  <script src="{% static 'js/booking-widget.js' %}"></script>
-  <script src="{% static 'js/whatsapp-bot.js' %}"></script>
+  <script src="{% static 'js/world.js' %}?v=3.0"></script>
+  <script src="{% static 'js/motion.js' %}?v=3.0"></script>
+  <script src="{% static 'js/booking-widget.js' %}?v=3.0"></script>
+  <script src="{% static 'js/whatsapp-bot.js' %}?v=3.0"></script>
 </body>
 </html>
