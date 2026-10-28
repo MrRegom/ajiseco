@@ -1,13 +1,13 @@
 /**
  * ==============================================================================
- * EL AJÍ SECO DEL MAR — SCROLL WORLD CINEMÁTICO (ARKO SUSHI ARCHITECTURE)
- * Transiciones de fotogramas reales de El Ají Seco con GSAP ScrollTrigger
- * y Lenis Smooth Scroll.
+ * EL AJÍ SECO DEL MAR — SCROLL WORLD CINEMÁTICO (ARKO SUSHI WALKTHROUGH ENGINE)
+ * Reproducción y scrub continuo de vídeo Full HD según el scroll con GSAP
+ * ScrollTrigger y Lenis Smooth Scroll.
  * 
- * Arquitectura a prueba de fallos:
- * - Detección matemática robusta (sin riesgo de NaN en cálculos de posición).
- * - Fallback continuo garantizado ante cargas asíncronas de imágenes.
- * - Soporte nativo para eventos táctiles (touch-action pan-y).
+ * Basado en la arquitectura original de Arko Sushi (midudev/mcp-higgsfield-landing):
+ * - Precarga progresiva de clips de vídeo MP4 en background vía Blob URLs.
+ * - Interpolación milimétrica de currentTime según la posición de desplazamiento.
+ * - Transición de vídeo fluida con crossfade de fotogramas Full HD en fallback.
  * ==============================================================================
  */
 
@@ -51,26 +51,64 @@
     const links = Array.from(stage.querySelectorAll('[data-goto]'));
     const fill = stage.querySelector('[data-rail-fill]');
     const hint = stage.querySelector('[data-hint]');
+    const clips = Array.from(stage.querySelectorAll('[data-clip]'));
     const last = stops.length - 1;
     const focus = stops.map((stop) => Number(stop.dataset.focus || 50));
 
     if (stops.length === 0 || frames.length === 0) return;
 
-    // Crear triggers para cada parada
+    // Triggers de ScrollTrigger por cada parada
     const marks = stops.map((stop) =>
       window.ScrollTrigger.create({ trigger: stop, start: 'top top' })
     );
 
-    let current = -1;
+    // Estado del motor de vídeo y paradas
+    const loadedClips = clips.map(() => false);
+    let currentStop = -1;
     let w = 0;
+    let activeClipIdx = 0;
+    let shownClipIdx = -1;
+    let targetTime = 0;
 
     const setCurrent = (index) => {
       const safeIndex = clamp(index, 0, last);
-      if (safeIndex === current) return;
-      current = safeIndex;
+      if (safeIndex === currentStop) return;
+      currentStop = safeIndex;
       stops.forEach((stop, i) => stop.classList.toggle('is-current', i === safeIndex));
       links.forEach((link, i) => link.setAttribute('aria-current', String(i === safeIndex)));
     };
+
+    const showCurrentClip = () => {
+      if (shownClipIdx !== activeClipIdx) {
+        shownClipIdx = activeClipIdx;
+        clips.forEach((clip, i) => clip.classList.toggle('is-shown', i === activeClipIdx));
+      }
+      stage.dataset.mode = 'video';
+    };
+
+    const syncTime = () => {
+      const clip = clips[activeClipIdx];
+      if (!clip || !loadedClips[activeClipIdx]) {
+        delete stage.dataset.mode;
+        return;
+      }
+      if (!clip.seeking) {
+        if (Math.abs(clip.currentTime - targetTime) > 0.015) {
+          clip.currentTime = targetTime;
+        } else {
+          showCurrentClip();
+        }
+      }
+    };
+
+    clips.forEach((clip, i) => {
+      clip.addEventListener('seeked', () => {
+        if (i === activeClipIdx) {
+          showCurrentClip();
+          syncTime();
+        }
+      });
+    });
 
     const render = (self) => {
       const scrollY = (self && typeof self.scroll === 'function')
@@ -82,7 +120,7 @@
       const worldHeight = world.offsetHeight || (window.innerHeight * stops.length);
       const stepHeight = worldHeight / stops.length;
 
-      // Calcular posiciones de cada parada de forma infalible
+      // Calcular posiciones de cada parada
       const keys = stops.map((stop, i) => {
         const trigger = marks[i];
         const triggerStart = (trigger && typeof trigger.start === 'number' && !isNaN(trigger.start) && trigger.start > 0)
@@ -112,7 +150,7 @@
       if (fill) fill.style.transform = `scaleY(${at / (last || 1)})`;
       if (hint) hint.style.opacity = String(clamp(1 - w * 4));
 
-      // Fotogramas reales de El Ají Seco: transición suave y escala cinemática
+      // Fotogramas Full HD Fallback (imágenes 2560px)
       frames.forEach((frame, i) => {
         let opacity = 0;
         if (i === 0) {
@@ -136,10 +174,21 @@
         }
         frame.style.opacity = opacity.toFixed(3);
         if (!reduceMotion) {
-          const scale = 1 + 0.04 * clamp(w - i + 0.5);
+          const scale = 1 + 0.05 * clamp(w - i + 0.5);
           frame.style.transform = `scale(${scale.toFixed(4)})`;
         }
       });
+
+      // Motor de Scrub de Vídeo
+      if (clips.length > 0) {
+        activeClipIdx = Math.min(clips.length - 1, Math.floor(w));
+        const clip = clips[activeClipIdx];
+        if (clip && loadedClips[activeClipIdx]) {
+          const dur = clip.duration || 3.0;
+          targetTime = Math.min((w - activeClipIdx) * dur, Math.max(0, dur - 0.05));
+        }
+        syncTime();
+      }
     };
 
     const span = window.ScrollTrigger.create({
@@ -152,7 +201,53 @@
 
     render(span);
 
-    // Navegación con clic suave en los puntos del rail lateral
+    // Precarga Asíncrona Inteligente de Vídeos por Prioridad de Scroll
+    const isSaveData = navigator.connection && navigator.connection.saveData;
+    if (!reduceMotion && clips.length > 0 && !isSaveData) {
+      const priority = (idx) => (idx === activeClipIdx ? -1 : idx > w ? idx - w : w - (idx + 1) + 0.5);
+      const queue = clips.map((_, i) => i);
+
+      const loadNextClip = async () => {
+        queue.sort((a, b) => priority(a) - priority(b));
+        const nextIdx = queue.shift();
+        if (nextIdx === undefined) return;
+
+        const clip = clips[nextIdx];
+        const src = clip.dataset.src || '';
+        clip.preload = 'auto';
+
+        try {
+          const resp = await fetch(src);
+          if (!resp.ok) throw new Error(resp.statusText);
+          const blob = await resp.blob();
+          clip.src = URL.createObjectURL(blob);
+        } catch {
+          clip.src = src;
+        }
+
+        const ready = await new Promise((resolve) => {
+          clip.addEventListener('loadeddata', () => resolve(true), { once: true });
+          clip.addEventListener('error', () => resolve(false), { once: true });
+        });
+
+        if (ready) {
+          await clip.play().catch(() => {});
+          clip.pause();
+          loadedClips[nextIdx] = true;
+          render(span);
+        }
+
+        loadNextClip();
+      };
+
+      if (document.readyState === 'complete') {
+        loadNextClip();
+      } else {
+        window.addEventListener('load', loadNextClip, { once: true });
+      }
+    }
+
+    // Navegación fluida por los enlaces del rail
     links.forEach((link) => {
       link.addEventListener('click', (e) => {
         const targetId = link.getAttribute('href');
@@ -170,7 +265,6 @@
       });
     });
 
-    // Refresco automático de ScrollTrigger una vez cargados todos los activos
     if (window.ScrollTrigger) {
       window.ScrollTrigger.refresh();
       window.addEventListener('load', () => window.ScrollTrigger.refresh(), { once: true });
