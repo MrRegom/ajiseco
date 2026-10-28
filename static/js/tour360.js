@@ -140,10 +140,15 @@
     if (sceneData.initial_view) {
       STATE.targetLon = sceneData.initial_view.yaw || 0;
       STATE.targetLat = sceneData.initial_view.pitch || 0;
+      STATE.minPitch = sceneData.initial_view.min_pitch !== undefined ? sceneData.initial_view.min_pitch : -85;
+      STATE.maxPitch = sceneData.initial_view.max_pitch !== undefined ? sceneData.initial_view.max_pitch : 85;
       if (isInitial) {
         STATE.lon = STATE.targetLon;
         STATE.lat = STATE.targetLat;
       }
+    } else {
+      STATE.minPitch = -85;
+      STATE.maxPitch = 85;
     }
 
     const imgUrl = sceneData.image_webp || sceneData.image_jpg;
@@ -559,6 +564,7 @@
       if (sceneItem.id.includes('bar')) icon = '🍸';
       if (sceneItem.id.includes('cava')) icon = '🍷';
       if (sceneItem.id.includes('terraza')) icon = '🌅';
+      if (sceneItem.id.includes('comedor')) icon = '📸';
 
       btn.innerHTML = `<span class="dock-pill-icon">${icon}</span><span>${escapeHtml(sceneItem.name)}</span>`;
 
@@ -703,8 +709,10 @@
     STATE.targetLon = (STATE.onPointerDownPointerX - event.clientX) * factor + STATE.onPointerDownLon;
     STATE.targetLat = (event.clientY - STATE.onPointerDownPointerY) * factor + STATE.onPointerDownLat;
 
-    // Limitar inclinación vertical
-    STATE.targetLat = Math.max(-85, Math.min(85, STATE.targetLat));
+    // Limitar inclinación vertical según la escena
+    const minP = STATE.minPitch !== undefined ? STATE.minPitch : -85;
+    const maxP = STATE.maxPitch !== undefined ? STATE.maxPitch : 85;
+    STATE.targetLat = Math.max(minP, Math.min(maxP, STATE.targetLat));
   }
 
   function onPointerUp(event) {

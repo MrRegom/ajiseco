@@ -18,13 +18,14 @@ class SceneRepositoryTestCase(TestCase):
 
     def test_repository_contains_all_four_restaurant_scenes(self):
         scenes = self.repo.get_all_scenes()
-        self.assertEqual(len(scenes), 4)
+        self.assertEqual(len(scenes), 5)
 
         scene_ids = [s['id'] for s in scenes]
         self.assertIn('salon-principal', scene_ids)
         self.assertIn('barra-signature', scene_ids)
         self.assertIn('cava-vip', scene_ids)
         self.assertIn('terraza-lounge', scene_ids)
+        self.assertIn('mi-comedor', scene_ids)
 
     def test_scene_attributes_integrity(self):
         scene = self.repo.get_scene_by_id('salon-principal')
@@ -38,7 +39,7 @@ class SceneRepositoryTestCase(TestCase):
     def test_radar_floor_plan_configuration(self):
         plan = self.repo.get_radar_floor_plan()
         self.assertIn('zones', plan)
-        self.assertEqual(len(plan['zones']), 4)
+        self.assertEqual(len(plan['zones']), 5)
 
 
 class TourServiceTestCase(TestCase):

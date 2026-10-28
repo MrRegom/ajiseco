@@ -242,6 +242,48 @@ class InMemorySceneRepository(SceneRepositoryInterface):
                         'target_scene': 'barra-signature'
                     }
                 ]
+            },
+            'mi-comedor': {
+                'id': 'mi-comedor',
+                'name': 'Mi Comedor (Foto Móvil Real)',
+                'category': 'Prueba Fotográfica',
+                'subtitle': 'Panorama capturado con smartphone para evaluar perspectiva y escala',
+                'image_webp': '/static/img/tour360/mi-comedor.webp',
+                'image_jpg': '/static/img/tour360/mi-comedor.jpg',
+                'initial_view': {'yaw': 0, 'pitch': 0, 'fov': 75, 'min_pitch': -28, 'max_pitch': 28},
+                'radar_coords': {'x': 50, 'y': 15},
+                'hotspots': [
+                    {
+                        'id': 'hs-mc-mesa',
+                        'type': 'table',
+                        'yaw': -35,
+                        'pitch': -5,
+                        'title': 'Mesa Comedor (Reserva de Prueba)',
+                        'badge': 'Mesa Demo',
+                        'description': 'Así se ubica una mesa real sobre la foto de tu móvil para que el cliente la reserve con un clic.',
+                        'capacity': 4,
+                        'action': 'reserve',
+                        'min_consumption': '$20.000'
+                    },
+                    {
+                        'id': 'hs-mc-cocina',
+                        'type': 'info',
+                        'yaw': 85,
+                        'pitch': -3,
+                        'title': 'Barra / Cocina Americana',
+                        'badge': 'Punto de Interés',
+                        'description': 'En un restaurante, aquí marcaríamos la barra de coctelería o la cocina a la vista del chef.'
+                    },
+                    {
+                        'id': 'hs-mc-to-salon',
+                        'type': 'portal',
+                        'yaw': 175,
+                        'pitch': -2,
+                        'title': 'Volver al Salón Central 🍽️',
+                        'badge': 'Salón TuEndpoint',
+                        'target_scene': 'salon-principal'
+                    }
+                ]
             }
         }
 
@@ -261,5 +303,6 @@ class InMemorySceneRepository(SceneRepositoryInterface):
                 {'id': 'barra-signature', 'name': 'Barra Cocktail', 'x': 78, 'y': 38},
                 {'id': 'cava-vip', 'name': 'Cava VIP', 'x': 22, 'y': 70},
                 {'id': 'terraza-lounge', 'name': 'Terraza Sunset', 'x': 82, 'y': 80},
+                {'id': 'mi-comedor', 'name': 'Mi Comedor Real', 'x': 50, 'y': 15},
             ]
         }
