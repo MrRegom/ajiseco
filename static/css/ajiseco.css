@@ -1240,6 +1240,63 @@ a {
 }
 
 /* ==========================================================================
+   BADGE FLOTANTE DE ACCESO RÁPIDO A TOUR 360° VR
+   ========================================================================== */
+.floating-tour360-badge {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: rgba(16, 20, 29, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 169, 60, 0.5);
+  border-radius: 9999px;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 169, 60, 0.25);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-tour360-badge:hover {
+  background: rgba(23, 29, 43, 0.95);
+  border-color: #E5A93C;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.7), 0 0 30px rgba(229, 169, 60, 0.45);
+  color: #E5A93C;
+}
+
+.floating-tour360-badge .tour360-pulse {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #E5A93C;
+  box-shadow: 0 0 10px #E5A93C;
+  animation: pulse-dot 1.8s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.35); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+@media (max-width: 767px) {
+  .floating-tour360-badge {
+    bottom: 1.25rem;
+    left: 1.25rem;
+    padding: 8px 14px;
+    font-size: 0.75rem;
+  }
+}
+
+/* ==========================================================================
    WHATSAPP CONCIERGE FLOTANTE DISCRETO (BOTÓN CIRCULAR DE ALTA GAMA)
    ========================================================================== */
 
