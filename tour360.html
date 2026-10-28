@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>TuEndpoint — Experiencia 360° VR para Restaurantes</title>
+  
+  <meta name="description" content="Recorrido virtual inmersivo en 360 grados para restaurantes. Explora salones, barra, cava y reserva mesas directamente en el espacio tridimensional.">
+  <meta name="theme-color" content="#07080b">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TuEndpoint | Experiencia 360° VR para Restaurantes">
+  <meta property="og:description" content="Recorrido virtual 360° inmersivo con selección de mesas en vivo, giroscopio móvil y coctelería signature.">
+
+  <!-- Estilos Corporativos -->
+  <link rel="stylesheet" href="static/css/tour360.css">
+</head>
+<body>
+
+  <!-- Lienzo WebGL 360 -->
+  <canvas id="tour360-viewport"></canvas>
+
+  <!-- Capa de Hotspots 3D Proyectados -->
+  <div id="hotspots-layer" aria-hidden="true"></div>
+
+  <!-- Header Flotante HUD -->
+  <header class="tour-header">
+    <div class="tour-header-left">
+      <a href="index.html" class="hud-btn" aria-label="Volver a la portada">
+        <span class="hud-icon">←</span>
+        <span>Volver al Restaurante</span>
+      </a>
+
+      <div class="brand-badge">
+        <span class="brand-name">TuEndpoint</span>
+        <span class="brand-tagline">Restaurant & Lounge 360°</span>
+      </div>
+    </div>
+
+    <div class="tour-header-right">
+      <button type="button" class="hud-btn is-active" id="btn-auto-rotate" title="Activar/Desactivar Rotación Automática">
+        <span class="hud-icon">🔄</span>
+        <span>Auto-Giro</span>
+      </button>
+
+      <button type="button" class="hud-btn" id="btn-gyro" title="Activar Modo Giroscopio Móvil / VR">
+        <span class="hud-icon">📱</span>
+        <span>Giroscopio VR</span>
+      </button>
+
+      <button type="button" class="hud-btn" id="btn-fullscreen" title="Pantalla Completa">
+        <span class="hud-icon">⛶</span>
+        <span>Completa</span>
+      </button>
+
+      <button type="button" class="hud-btn hud-btn-b2b" id="btn-b2b" title="Ver Oferta Comercial para Restaurantes">
+        <span class="hud-icon">✨</span>
+        <span>Para Restaurantes</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Notificación de Giroscopio Móvil -->
+  <aside class="gyro-notice" id="gyro-notice" role="status">
+    <span>🧭</span>
+    <span>Modo Giroscopio Activado: Mueve tu móvil para mirar en 360°</span>
+  </aside>
+
+  <!-- Minimapa Radar (Floor Plan) -->
+  <aside class="radar-widget" aria-label="Plano de distribución del restaurante">
+    <div class="radar-header">
+      <span class="radar-title">Plano Radar</span>
+    </div>
+    <div class="radar-canvas-wrap" id="radar-canvas-wrap"></div>
+  </aside>
+
+  <!-- Dock Inferior: Selector de Salones -->
+  <nav class="tour-dock" id="tour-dock" aria-label="Navegación de salones y ambientes"></nav>
+
+  <!-- Backdrop y Contenedor de Modales (Reserva, Platos, B2B) -->
+  <div class="tour-modal-backdrop" id="tour-modal-backdrop" role="dialog" aria-modal="true">
+    <div id="tour-modal-container"></div>
+  </div>
+
+  <!-- Manifiesto de Datos Estático (Para Vercel) -->
+  <script id="tour360-manifest" type="application/json">
+  {
+    "brand": {
+      "name": "TuEndpoint",
+      "commercial_name": "TuEndpoint | Restaurant & Gourmet Lounge",
+      "tagline": "Experiencia Gastronómica en Realidad Virtual 360°",
+      "phone": "+56945678900",
+      "whatsapp_link": "https://wa.me/56945678900?text=Hola%20TuEndpoint%2C%20quiero%20cotizar%20un%20Tour%20360%20VR%20para%20mi%20restaurante"
+    },
+    "default_scene_id": "salon-principal",
+    "scenes": [
+      {
+        "id": "salon-principal",
+        "name": "Salón Central Gourmet",
+        "category": "Comedor Principal",
+        "subtitle": "Ambiente cálido con iluminación tenue, chimenea y mesas ejecutivas",
+        "image_webp": "static/img/tour360/salon-principal.webp",
+        "image_jpg": "static/img/tour360/salon-principal.jpg",
+        "initial_view": {"yaw": 15, "pitch": -4, "fov": 75},
+        "radar_coords": {"x": 48, "y": 52},
+        "hotspots": [
+          {
+            "id": "hs-sp-mesa-04",
+            "type": "table",
+            "yaw": 32,
+            "pitch": -11,
+            "title": "Mesa 04 VIP (4 Personas)",
+            "badge": "Mesa Disponible",
+            "description": "Mesa central con iluminación focal cálida, sillones tapizados y servicio exclusivo de sommelier.",
+            "capacity": 4,
+            "action": "reserve",
+            "min_consumption": "$30.000"
+          },
+          {
+            "id": "hs-sp-mesa-08",
+            "type": "table",
+            "yaw": -65,
+            "pitch": -10,
+            "title": "Mesa 08 Ejecutiva (6 Personas)",
+            "badge": "Mesa Ejecutiva",
+            "description": "Espacio amplio para reuniones corporativas, almuerzos de negocios y celebraciones familiares.",
+            "capacity": 6,
+            "action": "reserve",
+            "min_consumption": "$50.000"
+          },
+          {
+            "id": "hs-sp-dish-lomo",
+            "type": "dish",
+            "yaw": -18,
+            "pitch": -16,
+            "title": "Lomo Saltado al Wok Endpoint",
+            "badge": "Plato Insignia",
+            "price": "$18.900",
+            "description": "Filete angus flameado al pisco quebranta, cebolla morada crocante, tomate y papas rústicas doradas.",
+            "image": "static/img/lomo-saltado-wok.png",
+            "action": "order"
+          },
+          {
+            "id": "hs-sp-to-bar",
+            "type": "portal",
+            "yaw": 118,
+            "pitch": -4,
+            "title": "Pasar a la Barra Signature 🍸",
+            "badge": "Siguiente Zona",
+            "target_scene": "barra-signature"
+          },
+          {
+            "id": "hs-sp-to-cava",
+            "type": "portal",
+            "yaw": -135,
+            "pitch": -5,
+            "title": "Bajar a Cava Privada VIP 🍷",
+            "badge": "Zona Privada",
+            "target_scene": "cava-vip"
+          }
+        ]
+      },
+      {
+        "id": "barra-signature",
+        "name": "Barra & Coctelería Signature",
+        "category": "Cocktail & Lounge",
+        "subtitle": "Mixología de vanguardia, destilados de colección y barra en vivo",
+        "image_webp": "static/img/tour360/barra-signature.webp",
+        "image_jpg": "static/img/tour360/barra-signature.jpg",
+        "initial_view": {"yaw": 5, "pitch": -3, "fov": 75},
+        "radar_coords": {"x": 78, "y": 38},
+        "hotspots": [
+          {
+            "id": "hs-bar-pisco-sour",
+            "type": "dish",
+            "yaw": 8,
+            "pitch": -7,
+            "title": "Pisco Sour Catedral TuEndpoint",
+            "badge": "Coctelería de Autor",
+            "price": "$7.900",
+            "description": "Pisco artesanal 40°, limón de pica fresco exprimido al momento, jarabe de goma y amargo de angostura.",
+            "image": "static/img/pisco-sour-catedral.png",
+            "action": "order"
+          },
+          {
+            "id": "hs-bar-seat-3",
+            "type": "table",
+            "yaw": -42,
+            "pitch": -14,
+            "title": "Barra Asiento 03 (Frontal)",
+            "badge": "Experiencia Bartender",
+            "description": "Primera fila frente a nuestra estación de coctelería experimental y ahumados.",
+            "capacity": 2,
+            "action": "reserve",
+            "min_consumption": "$20.000"
+          },
+          {
+            "id": "hs-bar-to-terraza",
+            "type": "portal",
+            "yaw": 88,
+            "pitch": -4,
+            "title": "Salir a la Terraza Sunset 🌅",
+            "badge": "Exterior",
+            "target_scene": "terraza-lounge"
+          },
+          {
+            "id": "hs-bar-to-salon",
+            "type": "portal",
+            "yaw": -145,
+            "pitch": -5,
+            "title": "Volver al Salón Central 🍽️",
+            "badge": "Salón Principal",
+            "target_scene": "salon-principal"
+          }
+        ]
+      },
+      {
+        "id": "cava-vip",
+        "name": "Cava Privada & Salón Degustación",
+        "category": "Exclusivo VIP",
+        "subtitle": "Bóveda en madera noble y piedra para cenas de gala y catas guiadas",
+        "image_webp": "static/img/tour360/cava-vip.webp",
+        "image_jpg": "static/img/tour360/cava-vip.jpg",
+        "initial_view": {"yaw": 0, "pitch": -6, "fov": 72},
+        "radar_coords": {"x": 22, "y": 70},
+        "hotspots": [
+          {
+            "id": "hs-cava-table-presidential",
+            "type": "table",
+            "yaw": -3,
+            "pitch": -14,
+            "title": "Mesa Presidencial Cava (12 Personas)",
+            "badge": "Salón Cerrado VIP",
+            "description": "Mesa de cata privada con sommelier personal, cristalería Riedel y menú degustación a 7 tiempos.",
+            "capacity": 12,
+            "action": "reserve",
+            "min_consumption": "$120.000"
+          },
+          {
+            "id": "hs-cava-info-wines",
+            "type": "info",
+            "yaw": 68,
+            "pitch": -6,
+            "title": "Cava Subterránea con +350 Etiquetas",
+            "badge": "Colección Enológica",
+            "description": "Vinos de guarda chilenos, cepas patrimoniales, añadas históricas y selecciones internacionales de Burdeos y Mendoza."
+          },
+          {
+            "id": "hs-cava-to-salon",
+            "type": "portal",
+            "yaw": -176,
+            "pitch": -5,
+            "title": "Subir al Salón Central 🍽️",
+            "badge": "Regresar",
+            "target_scene": "salon-principal"
+          }
+        ]
+      },
+      {
+        "id": "terraza-lounge",
+        "name": "Terraza Sunset & Deck Exterior",
+        "category": "Aire Libre",
+        "subtitle": "Vista panorámica al atardecer, brisa marina y confort en cada detalle",
+        "image_webp": "static/img/tour360/terraza-lounge.webp",
+        "image_jpg": "static/img/tour360/terraza-lounge.jpg",
+        "initial_view": {"yaw": 30, "pitch": -6, "fov": 75},
+        "radar_coords": {"x": 82, "y": 80},
+        "hotspots": [
+          {
+            "id": "hs-ter-mesa-21",
+            "type": "table",
+            "yaw": 24,
+            "pitch": -11,
+            "title": "Mesa 21 Sunset Frontline (4 Personas)",
+            "badge": "Vista Panorámica",
+            "description": "La ubicación más demandada al atardecer. Climatización radiante y vista directa al horizonte.",
+            "capacity": 4,
+            "action": "reserve",
+            "min_consumption": "$40.000"
+          },
+          {
+            "id": "hs-ter-dish-ceviche",
+            "type": "dish",
+            "yaw": -48,
+            "pitch": -15,
+            "title": "Ceviche Mixto al Fuego Endpoint",
+            "badge": "Mariscos Frescos",
+            "price": "$19.500",
+            "description": "Corvina recién desembarcada, camarones sellados, pulpo tierno, chulpi crocante y camote glaseado.",
+            "image": "static/img/cebiche-clasico.png",
+            "action": "order"
+          },
+          {
+            "id": "hs-ter-to-bar",
+            "type": "portal",
+            "yaw": -125,
+            "pitch": -4,
+            "title": "Entrar a Barra Signature 🍸",
+            "badge": "Interior",
+            "target_scene": "barra-signature"
+          }
+        ]
+      }
+    ],
+    "radar_plan": {
+      "restaurant_name": "TuEndpoint Restaurant & Gourmet Lounge",
+      "width": 600,
+      "height": 400,
+      "zones": [
+        {"id": "salon-principal", "name": "Salón Central", "x": 48, "y": 52},
+        {"id": "barra-signature", "name": "Barra Cocktail", "x": 78, "y": 38},
+        {"id": "cava-vip", "name": "Cava VIP", "x": 22, "y": 70},
+        {"id": "terraza-lounge", "name": "Terraza Sunset", "x": 82, "y": 80}
+      ]
+    },
+    "b2b_benefits": [
+      {
+        "title": "Incremento de Reservas Directas (+42%)",
+        "description": "El cliente recorre el restaurante antes de llegar, disipando dudas y eligiendo con seguridad su mesa predilecta."
+      },
+      {
+        "title": "Reserva Directa por Mesa en 360°",
+        "description": "Cada mesa cuenta con un hotspot interactivo con capacidad, consumo mínimo y enlace directo a reserva."
+      },
+      {
+        "title": "Efecto Realidad Virtual en Smartphone",
+        "description": "Aprovecha el giroscopio del móvil del cliente sin necesidad de cascos VR. Girar el celular pivota la vista en tiempo real."
+      },
+      {
+        "title": "Aumento del Ticket Promedio",
+        "description": "Exhibe platos icónicos y cócteles de autor en 3D mientras el cliente recorre la barra y el salón."
+      },
+      {
+        "title": "Integración Omnicanal Instantánea",
+        "description": "Se enlaza con un clic en la biografía de Instagram, ficha de Google Maps, códigos QR en servilletas y sitio web."
+      }
+    ]
+  }
+  </script>
+
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Módulos JavaScript Corporativos -->
+  <script src="static/js/tour360.js"></script>
+  <script src="static/js/tour360-init.js"></script>
+
+</body>
+</html>

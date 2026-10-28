@@ -12,6 +12,7 @@ urlpatterns = [
     path('', include('apps.core.urls', namespace='core')),
     path('', include('apps.carta.urls', namespace='carta')),
     path('', include('apps.reservas.urls', namespace='reservas')),
+    path('tour360/', include('apps.tour360.urls', namespace='tour360')),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,707 @@
+/**
+ * Estilos Corporativos para el Tour 360° VR Inmersivo "TuEndpoint".
+ * Arquitectura CSS limpia, alto rendimiento, cero dependencias pesadas.
+ * Paleta: Obsidian Dark (#0b0c10), Oro Ámbar (#E5A93C), Esmeralda Neon (#10B981).
+ */
+
+:root {
+  --bg-deep: #07080b;
+  --bg-surface: rgba(16, 20, 29, 0.75);
+  --bg-surface-elevated: rgba(23, 29, 43, 0.88);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-accent: rgba(229, 169, 60, 0.4);
+  --color-gold: #E5A93C;
+  --color-gold-glow: rgba(229, 169, 60, 0.35);
+  --color-emerald: #10B981;
+  --color-emerald-glow: rgba(16, 185, 129, 0.4);
+  --color-text-main: #FFFFFF;
+  --color-text-muted: #A0AAB8;
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-serif: "Hina Mincho", "Cinzel", "Playfair Display", Georgia, serif;
+  --radius-full: 9999px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+  --backdrop-blur: blur(20px);
+  --transition-smooth: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-deep);
+  color: var(--color-text-main);
+  font-family: var(--font-family-base);
+  -webkit-font-smoothing: antialiased;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Canvas WebGL & Overlay Container
+   ========================================================================== */
+#tour360-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  cursor: grab;
+  touch-action: none;
+}
+
+#tour360-viewport:active {
+  cursor: grabbing;
+}
+
+#hotspots-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Header HUD Flotante (Glassmorphism Píldora)
+   ========================================================================== */
+.tour-header {
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+.tour-header-left,
+.tour-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.hud-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-surface);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--color-text-main);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.hud-btn:hover {
+  background: var(--bg-surface-elevated);
+  border-color: var(--border-accent);
+  transform: translateY(-1px);
+  color: var(--color-gold);
+}
+
+.hud-btn.is-active {
+  background: rgba(229, 169, 60, 0.2);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  box-shadow: 0 0 20px var(--color-gold-glow);
+}
+
+.hud-btn-b2b {
+  background: linear-gradient(135deg, rgba(229, 169, 60, 0.25), rgba(16, 185, 129, 0.25));
+  border-color: var(--color-gold);
+  color: #FFF;
+  font-weight: 600;
+}
+
+.hud-btn-b2b:hover {
+  box-shadow: 0 0 25px rgba(229, 169, 60, 0.5);
+  transform: translateY(-2px);
+}
+
+.brand-badge {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 18px;
+  background: var(--bg-surface);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  pointer-events: auto;
+}
+
+.brand-name {
+  font-family: var(--font-family-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #FFF;
+}
+
+.brand-tagline {
+  font-size: 0.65rem;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* ==========================================================================
+   Dock Inferior: Selector de Salones / Escenas
+   ========================================================================== */
+.tour-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--bg-surface);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  max-width: 95vw;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tour-dock::-webkit-scrollbar {
+  display: none;
+}
+
+.dock-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.dock-pill:hover {
+  color: #FFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dock-pill.is-active {
+  background: rgba(229, 169, 60, 0.2);
+  border-color: var(--color-gold);
+  color: #FFF;
+  font-weight: 600;
+  box-shadow: 0 0 16px var(--color-gold-glow);
+}
+
+.dock-pill-icon {
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   Plano Radar Interactivo (Floor Plan Minimap)
+   ========================================================================== */
+.radar-widget {
+  position: fixed;
+  bottom: 95px;
+  right: 20px;
+  z-index: 10;
+  width: 170px;
+  height: 170px;
+  background: var(--bg-surface);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  transition: var(--transition-smooth);
+}
+
+.radar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.radar-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+.radar-canvas-wrap {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.radar-pin {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.radar-pin:hover {
+  transform: translate(-50%, -50%) scale(1.4);
+  background: #FFF;
+}
+
+.radar-pin.is-active {
+  background: var(--color-gold);
+  box-shadow: 0 0 12px var(--color-gold);
+  z-index: 2;
+}
+
+.radar-cone {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Hotspots 3D Proyectados en Pantalla
+   ========================================================================== */
+.hotspot-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.hotspot-ring {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold);
+  animation: hotspot-pulse 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  pointer-events: none;
+}
+
+.hotspot-core {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(16, 20, 29, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  box-shadow: 0 0 15px var(--color-gold-glow);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hotspot-node:hover .hotspot-core {
+  transform: scale(1.2);
+  background: var(--color-gold);
+}
+
+/* Variantes según tipo */
+.hotspot-node.type-portal .hotspot-ring {
+  border-color: var(--color-emerald);
+}
+.hotspot-node.type-portal .hotspot-core {
+  border-color: var(--color-emerald);
+  box-shadow: 0 0 15px var(--color-emerald-glow);
+}
+.hotspot-node.type-portal:hover .hotspot-core {
+  background: var(--color-emerald);
+}
+
+.hotspot-label {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--bg-surface-elevated);
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-accent);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #FFF;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.hotspot-node:hover .hotspot-label {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@keyframes hotspot-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Modales & Paneles Flotantes (Reserva, Plato, B2B)
+   ========================================================================== */
+.tour-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 10, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.tour-modal-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tour-modal-card {
+  position: relative;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px var(--color-gold-glow);
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tour-modal-backdrop.is-open .tour-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  color: #FFF;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--color-gold);
+}
+
+.modal-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(229, 169, 60, 0.15);
+  border: 1px solid var(--color-gold);
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.modal-title {
+  font-family: var(--font-family-serif);
+  font-size: 1.6rem;
+  color: #FFF;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.modal-subtitle {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.modal-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.meta-item-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.meta-item-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FFF;
+  margin-top: 2px;
+}
+
+/* Formulario de Reserva 360 */
+.reserve-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: #FFF;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--color-gold);
+}
+
+.btn-confirm-reserve {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  background: var(--color-gold);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #0b0c10;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  margin-top: 10px;
+}
+
+.btn-confirm-reserve:hover {
+  background: #f1b74f;
+  box-shadow: 0 0 25px var(--color-gold-glow);
+  transform: translateY(-2px);
+}
+
+/* Modal B2B / Beneficios para Restaurantes */
+.b2b-benefit-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 10px;
+}
+
+.b2b-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.b2b-benefit-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  margin-bottom: 4px;
+}
+
+.b2b-benefit-desc {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.btn-quote-b2b {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #10B981, #059669);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #FFF;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 0 30px var(--color-emerald-glow);
+  transition: var(--transition-smooth);
+  margin-top: 16px;
+}
+
+.btn-quote-b2b:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.6);
+}
+
+/* Banner de Giroscopio Móvil */
+.gyro-notice {
+  position: fixed;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  background: rgba(16, 185, 129, 0.9);
+  color: #FFF;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.gyro-notice.is-visible {
+  display: flex;
+}
+
+/* ==========================================================================
+   Media Queries & Mobile Tweaks
+   ========================================================================== */
+@media (max-width: 768px) {
+  .tour-header {
+    padding: 0 12px;
+  }
+  
+  .brand-name {
+    font-size: 0.95rem;
+  }
+  
+  .brand-tagline {
+    display: none;
+  }
+  
+  .hud-btn span:not(.hud-icon) {
+    display: none;
+  }
+  
+  .hud-btn {
+    padding: 10px;
+  }
+
+  .radar-widget {
+    bottom: 85px;
+    right: 12px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .tour-dock {
+    bottom: 16px;
+    padding: 6px 8px;
+    gap: 6px;
+  }
+
+  .dock-pill {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+
+  .tour-modal-card {
+    padding: 22px 18px;
+  }
+
+  .modal-title {
+    font-size: 1.3rem;
+  }
+}

@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'apps.core.apps.CoreConfig',
     'apps.carta.apps.CartaConfig',
     'apps.reservas.apps.ReservasConfig',
+    'apps.tour360.apps.Tour360Config',
 ]
 
 MIDDLEWARE = [

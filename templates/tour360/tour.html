@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{ page_title|default:"TuEndpoint — Experiencia 360° VR para Restaurantes" }}</title>
+  
+  <meta name="description" content="{{ meta_description|default:'Recorrido virtual inmersivo en 360 grados para restaurantes. Explora salones, barra, cava y reserva mesas directamente en el espacio tridimensional.' }}">
+  <meta name="theme-color" content="#07080b">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TuEndpoint | Experiencia 360° VR para Restaurantes">
+  <meta property="og:description" content="Recorrido virtual 360° inmersivo con selección de mesas en vivo, giroscopio móvil y coctelería signature.">
+
+  <!-- Estilos Corporativos -->
+  <link rel="stylesheet" href="{% static 'css/tour360.css' %}">
+</head>
+<body>
+
+  <!-- Lienzo WebGL 360 -->
+  <canvas id="tour360-viewport"></canvas>
+
+  <!-- Capa de Hotspots 3D Proyectados -->
+  <div id="hotspots-layer" aria-hidden="true"></div>
+
+  <!-- Header Flotante HUD -->
+  <header class="tour-header">
+    <div class="tour-header-left">
+      <a href="{% url 'core:home' %}" class="hud-btn" aria-label="Volver a la portada">
+        <span class="hud-icon">←</span>
+        <span>Volver al Restaurante</span>
+      </a>
+
+      <div class="brand-badge">
+        <span class="brand-name">TuEndpoint</span>
+        <span class="brand-tagline">Restaurant & Lounge 360°</span>
+      </div>
+    </div>
+
+    <div class="tour-header-right">
+      <button type="button" class="hud-btn is-active" id="btn-auto-rotate" title="Activar/Desactivar Rotación Automática">
+        <span class="hud-icon">🔄</span>
+        <span>Auto-Giro</span>
+      </button>
+
+      <button type="button" class="hud-btn" id="btn-gyro" title="Activar Modo Giroscopio Móvil / VR">
+        <span class="hud-icon">📱</span>
+        <span>Giroscopio VR</span>
+      </button>
+
+      <button type="button" class="hud-btn" id="btn-fullscreen" title="Pantalla Completa">
+        <span class="hud-icon">⛶</span>
+        <span>Completa</span>
+      </button>
+
+      <button type="button" class="hud-btn hud-btn-b2b" id="btn-b2b" title="Ver Oferta Comercial para Restaurantes">
+        <span class="hud-icon">✨</span>
+        <span>Para Restaurantes</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Notificación de Giroscopio Móvil -->
+  <aside class="gyro-notice" id="gyro-notice" role="status">
+    <span>🧭</span>
+    <span>Modo Giroscopio Activado: Mueve tu móvil para mirar en 360°</span>
+  </aside>
+
+  <!-- Minimapa Radar (Floor Plan) -->
+  <aside class="radar-widget" aria-label="Plano de distribución del restaurante">
+    <div class="radar-header">
+      <span class="radar-title">Plano Radar</span>
+    </div>
+    <div class="radar-canvas-wrap" id="radar-canvas-wrap"></div>
+  </aside>
+
+  <!-- Dock Inferior: Selector de Salones -->
+  <nav class="tour-dock" id="tour-dock" aria-label="Navegación de salones y ambientes"></nav>
+
+  <!-- Backdrop y Contenedor de Modales (Reserva, Platos, B2B) -->
+  <div class="tour-modal-backdrop" id="tour-modal-backdrop" role="dialog" aria-modal="true">
+    <div id="tour-modal-container"></div>
+  </div>
+
+  <!-- Manifiesto de Datos Seguro (JSON Desacoplado) -->
+  <script id="tour360-manifest" type="application/json">
+    {{ manifest_json|safe }}
+  </script>
+
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Módulos JavaScript Corporativos -->
+  <script src="{% static 'js/tour360.js' %}"></script>
+  <script src="{% static 'js/tour360-init.js' %}"></script>
+
+</body>
+</html>
